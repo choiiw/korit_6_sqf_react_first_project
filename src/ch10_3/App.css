@@ -1,11 +1,11 @@
 table {
     border-collapse: collapse;
-    border: 1px solid #dbdbdb;
+    border: 1px solid rgb(184, 137, 228);
 }
 
 th, td {
     box-sizing: border-box;
-    border: 1px solid #dbdbdb;
+    border: 1px solid  rgb(184, 137, 228);
     padding: 5px 10px;
     text-align: center;
 }
@@ -14,3 +14,15 @@ th {
     color: blueviolet;
 }
 
+td {
+    cursor: pointer;
+}
+
+button {
+    background-color: #dbdbdb;
+    border: 1px solid #dbdbdb;
+}
+
+button:hover {
+    background-color: darkgray;
+}

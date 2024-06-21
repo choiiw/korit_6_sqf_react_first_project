@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
 import "./App.css";
+import Swal from "sweetalert2";
 
 function App() {
+
     const emptyUser = {
         username: "",
         password: "",
@@ -47,10 +49,55 @@ function App() {
         });
     };
 
+    const handleEditClick = (key, index) => {
+        Swal.fire({
+            title: `${key} edit`,
+            input: "text",
+            inputValue: userList[index][key],
+            showCancelButton: true,
+            cancelButtonText: "취소",
+            confirmButtonText: "확인"
+        }).then(result => {
+            if(result.isConfirmed){
+                setUserList(userList => [ ...userList.map((user, i) => {
+                    if(i === index) {
+                        return {
+                            ...user,
+                            [key]: result.value
+                        };
+                    }
+                    return user;
+
+                })]);
+            }
+            
+        });
+
+    }
 
     const handleDeleteClick = (e) => {
-        setUserList(userList => [ ...userList.filter(( user, index ) => index !== parseInt(e.target.value))]);
-    }
+        Swal.fire({
+            title: "사용자 삭제",
+            text: "해당 사용자를 삭제하시겠습니까?.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "삭제",
+            confirmButtonColor: "red",
+            cancelButtonText: "취소"
+        }).then(result => {
+            if(result.isConfirmed) {
+                setUserList(userList => [ ...userList.filter(( user, index ) => index !== parseInt(e.target.value))]);
+                Swal.fire({
+                    title: "삭제 완료!",
+                    text: "해당 사용자가 삭제되었습니다.",
+                    icon: "success"
+                  });
+            }
+        });
+    //     if(window.confirm("해당 사용자를 삭제하시겠습니까?")) {
+    //         setUserList(userList => [ ...userList.filter(( user, index ) => index !== parseInt(e.target.value))]);
+    //     };
+         };
     
 
     return<>
@@ -87,6 +134,7 @@ function App() {
                     <th>username</th>
                     <th>password</th>
                     <th>name</th>
+                    <th>edit</th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -95,10 +143,15 @@ function App() {
                    return (
                     <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>{username}</td>
-                        <td>{password}</td>
-                        <td>{name}</td>
-                        <button onClick={handleDeleteClick} value={index}>삭제</button>
+                        <td onClick={() => handleEditClick("username", index)}>{username}</td>
+                        <td onClick={() => handleEditClick("password", index)}>{password}</td>
+                        <td onClick={() => handleEditClick("name", index)}>{name}</td>
+                        <td>
+                            <button value={index}>edit</button>
+                        </td>
+                        <td>
+                            <button onClick={handleDeleteClick} value={index}>삭제</button>
+                        </td>
                     </tr>
                    );
                 })
