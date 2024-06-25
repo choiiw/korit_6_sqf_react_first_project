@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 
-function DataTableBody({ mode, setMode, products, isDeleting, setDeleting, setProducts }) {
+function DataTableBody({ mode, setMode, products, isDeleting, setDeleting, setProducts, setEditProductId }) {
 
     const [ viewProducts, setViewProducts ] = useState([]);
     
@@ -36,6 +36,14 @@ function DataTableBody({ mode, setMode, products, isDeleting, setDeleting, setPr
              setDeleting(false);
         }
     }, [isDeleting])
+
+    useEffect(() => {  
+        if(mode === 2){ 
+            const [ selectedProduct ] = viewProducts.filter(product => product.isChecked);
+
+            setEditProductId(!selectedProduct ? 0 : selectedProduct.id);
+        }
+    }, [viewProducts])
 
 
     const handleCheckedChange = (e) => {
