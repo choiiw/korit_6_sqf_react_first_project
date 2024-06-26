@@ -80,7 +80,7 @@ function App() {
                     <div className="input-box">
                         <h3>이메일</h3>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             onChange={handleInputChange}
                             value={inputData.email}
