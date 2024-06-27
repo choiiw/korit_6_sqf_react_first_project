@@ -2,8 +2,12 @@
 import * as s from "./style";
 import MainContainer from "../MainContainer/MainContainer";
 import { FaBars } from "react-icons/fa";
+import { useRecoilState } from "recoil";
+import { mainSidebarShowAtom } from "../../atoms/mainSidebarShowAtom";
 
-function MainHeader({ setMainSidebarShow }) {
+function MainHeader() {
+
+    const [ mainSidebarShow, setMainSidebarShow ] = useRecoilState(mainSidebarShowAtom)
 
     const handleMainMunuToggleClick = () => {
         setMainSidebarShow(true);

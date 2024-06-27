@@ -8,7 +8,7 @@ import MainBody from "./components/MainBody/MainBody";
 
 
 function App() {
-    const [ isMainSidebarShow, setMainSidebarShow ] = useState(false);
+    
 
     return (
         <>
@@ -16,14 +16,11 @@ function App() {
 
             <MainLayout>
                         
-                <MainHeader 
-                    setMainSidebarShow={setMainSidebarShow} 
-                />
+                <MainHeader />
+
                 <MainBody />
-                <MainSidebar 
-                   isMainSidebarShow={isMainSidebarShow} 
-                   setMainSidebarShow={setMainSidebarShow}
-                />
+                
+                <MainSidebar />
 
             </MainLayout>
         </>
